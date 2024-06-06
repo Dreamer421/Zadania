@@ -1,0 +1,54 @@
+
+
+
+
+void Main()
+{
+    Console.WriteLine("Podaj numer EAN-13");
+    string input = Console.ReadLine();
+    if (input.Length != 13)
+    {
+        Console.WriteLine("Numer EAN-13 musi zawierać 13 cyfr");
+        return;
+    }
+    else
+    {
+        int[] EAN = new int[input.Length];
+        for (int i = 0; i < input.Length; i++)
+        {
+            EAN[i] = int.Parse(input[i].ToString());
+        }
+        sumAndCheck(EAN);
+    }
+}
+
+void sumAndCheck(int[] EAN)
+{
+    int sum = 0;
+    int lastDigit = EAN[12];
+    for (int i = 0; i < 12; i++)
+    {
+        if (i % 2 == 0)
+        {
+            sum += EAN[i];
+        }
+        else
+        {
+            sum += EAN[i] * 3;  
+        }
+    }
+    int remainder = sum % 10;
+    int checkDigit = (10 - remainder) % 10;
+    if (checkDigit == lastDigit)
+    {
+        Console.WriteLine("Liczba kontrolna jest poprawna");
+    }
+    else 
+    {
+        Console.WriteLine("Liczba kontrolna jest niepoprawna. Poprawna liczba to: " + checkDigit);
+    }
+}
+
+
+
+Main();
